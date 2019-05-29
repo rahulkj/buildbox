@@ -62,35 +62,6 @@ get_latest_release() {
 ## Installations
 ###
 
-install_curl() {
-  log 'Installing curl'
-  apt-get update
-  apt-get install curl -y --no-install-recommends
-}
-
-install_wget() {
-  log 'Installing wget'
-  apt-get update
-  apt-get install wget -y --no-install-recommends
-}
-
-install_ruby() {
-  command curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
-  command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-  \curl -sSL https://get.rvm.io | bash -s stable
-  source /usr/local/rvm/scripts/rvm
-  rvm install $DEFAULT_RUBY_VERSION
-  rvm use --default $DEFAULT_RUBY_VERSION
-  rvm cleanup all
-}
-
-install_jq() {
-    log 'Installing jq'
-    apt-get update
-    apt-get install jq -y --no-install-recommends
-}
-
-
 install_yq() {
     log 'Installing yq'
 
@@ -98,12 +69,6 @@ install_yq() {
 
     wget -qO "$OUTPUT"/yq "$DOWNLOAD_URL"
     chmod +x "$OUTPUT"/yq
-}
-
-install_git() {
-  log 'Installing git'
-  apt-get update
-  apt-get install git -y --no-install-recommends
 }
 
 install_bosh() {
@@ -223,12 +188,7 @@ fi
 if [ ! -z "$1" ]; then
     function_exists install_$1 && eval install_$1 || echo "Unknown installation $1" 1>&2 && exit 4
 else
-    # install_curl
-    # install_wget
-    # install_ruby
-    install_jq
     install_yq
-    install_git
     install_bosh
     install_cf
     install_credhub
@@ -236,5 +196,4 @@ else
     install_pivnet_cli
     install_fly
     install_govc
-    # install_uaac
 fi
