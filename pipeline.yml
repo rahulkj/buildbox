@@ -4,13 +4,23 @@ jobs:
   public: true
   serial: true
   plan:
-  - get: git-repo
+  - get: schedule
     trigger: true
+  - get: git-repo
   - put: docker-image
     params:
       build: git-repo/ci
 
 resources:
+- name: schedule
+  type: time
+  source:
+    interval: 24h
+    start: "12:00 AM"
+    stop: "11:59 PM"
+    location: America/Los_Angeles
+    days: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+
 - name: git-repo
   type: git
   source:
