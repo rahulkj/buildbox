@@ -7,7 +7,7 @@ declare -a DEPENDENCIES=(tar wget gzip ruby gem jq curl)
 LOGFILE=/dev/null
 OUTPUT=/usr/local/bin
 
-DEFAULT_RUBY_VERSION=2.6.2
+DEFAULT_RUBY_VERSION=2.6.3
 URLS_CF='https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github'
 REPO_CREDHUB=cloudfoundry-incubator/credhub-cli
 REPO_OM=pivotal-cf/om
