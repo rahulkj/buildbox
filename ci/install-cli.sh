@@ -110,8 +110,16 @@ install_om() {
 
   get_latest_release "$REPO_OM" "linux"
 
-  wget -qO "$OUTPUT"/om "$DOWNLOAD_URL"
-  chmod +x "$OUTPUT"/om
+  while read -r line; do
+    if [[ "$line" == *om-*linux-*.tar.gz ]]; then
+      wget -qO om.tgz "$line"
+      tar -xvf om.tgz
+      chmod +x om
+      mv om "$OUTPUT"/om
+
+      rm om.tgz
+    fi
+  done <<< "$DOWNLOAD_URL"
 }
 
 install_pivnet_cli() {
