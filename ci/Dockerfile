@@ -1,4 +1,4 @@
-FROM ubuntu:19.04
+FROM ubuntu:19.10
 MAINTAINER rahulkj@gmail.com
 
 ADD install-cli.sh /
