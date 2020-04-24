@@ -26,13 +26,13 @@ resources:
   source:
     uri: ((git_url))
     branch: ((git_branch))
-    username: ((git_username))
-    password: ((git_token))
+    username: ((git_credentials.username))
+    password: ((git_credentials.password))
 
 - name: docker-image
   type: docker-image
   source:
     email: ((docker_hub_email))
-    username: ((docker_hub_username))
-    password: ((docker_hub_password))
+    username: ((docker_hub_credentials.username))
+    password: ((docker_hub_credentials.password))
     repository: ((docker_hub_repository))
