@@ -7,6 +7,7 @@ jobs:
   - get: schedule
     trigger: true
   - get: git-repo
+    trigger: true
   - put: docker-image
     params:
       build: git-repo/ci
