@@ -1,6 +1,9 @@
 FROM ubuntu:20.04
 MAINTAINER rahulkj@gmail.com
 
+ENV DEBIAN_FRONTEND noninteractive
+ENV DEBCONF_NONINTERACTIVE_SEEN true
+
 ADD install-cli.sh /
 
 RUN apt-get update && apt-get install -y --no-install-recommends git python \
