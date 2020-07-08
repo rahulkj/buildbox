@@ -7,7 +7,6 @@ declare -a DEPENDENCIES=(tar wget gzip ruby gem jq curl)
 LOGFILE=/dev/null
 OUTPUT=/usr/local/bin
 
-DEFAULT_RUBY_VERSION=$(curl https://cache.ruby-lang.org/pub/ruby/index.txt | tail -1 | awk '{split($0,a," "); print a[1]}' | cut -d'-' -f2)
 URLS_CF='https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github'
 REPO_CREDHUB=cloudfoundry-incubator/credhub-cli
 REPO_OM=pivotal-cf/om
