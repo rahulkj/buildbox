@@ -177,7 +177,7 @@ install_mc() {
 
 install_kubectl() {
     log 'Installing kubectl cli'
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl
+    wget https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl -O kubectl
     chmod +x ./kubectl
     mv ./kubectl /usr/local/bin/kubectl
     kubectl version --client
@@ -185,7 +185,9 @@ install_kubectl() {
 
 install_tkgi() {
     log 'Installing tkgi cli'
-    wget http://minio.homelab.io:9000/minio/clis/tkgi/tkgi-linux-amd64-1.8.0-build.75 -O tkgi
+    pivnet login --api-token=${PIVNET_TOKEN}
+    pivnet download-product-files -p pivotal-container-service -r 1.8.1 -g 'tkgi-linux-amd64-*'
+    mv ./tkgi-linux-amd64-* ./tkgi
     chmod +x ./tkgi
     mv ./tkgi /usr/local/bin/tkgi
     tkgi --version

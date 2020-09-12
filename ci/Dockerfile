@@ -3,6 +3,7 @@ MAINTAINER rahulkj@gmail.com
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
+ENV PIVNET_TOKEN ${PIVNET_TOKEN}
 
 ADD install-cli.sh /
 

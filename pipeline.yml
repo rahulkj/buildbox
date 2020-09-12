@@ -12,6 +12,7 @@ jobs:
   - put: docker-image
     params:
       build: git-repo/ci
+      PIVNET_TOKEN: ((pivnet_token))
 
 resources:
 - name: schedule
