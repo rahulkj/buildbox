@@ -167,6 +167,22 @@ install_uaac() {
     gem install cf-uaac >> $LOGFILE
 }
 
+install_mc() {
+    log 'Installing minio cli'
+    wget https://dl.min.io/client/mc/release/linux-amd64/mc
+    chmod +x mc
+    mv ./mc /usr/local/bin/mc
+    mc --version
+}
+
+install_kubectl() {
+    log 'Installing kubectl cli'
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl
+    chmod +x ./kubectl
+    mv ./kubectl /usr/local/bin/kubectl
+    kubectl version --client
+}
+
 ###
 # Main
 ##
@@ -203,4 +219,6 @@ else
     install_pivnet_cli
     install_fly
     install_govc
+    install_mc
+    install_kubectl
 fi
