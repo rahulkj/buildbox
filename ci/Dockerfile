@@ -3,13 +3,13 @@ MAINTAINER rahulkj@gmail.com
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
-ENV PIVNET_TOKEN ${PIVNET_TOKEN}
 
 ADD install-cli.sh /
+ADD tkgi/tkgi-* /usr/local/bin/tkgi
 
 RUN apt-get update && apt-get install -y --no-install-recommends git python \
   nano unzip uuid-runtime iputils-ping dnsutils ca-certificates \
   netcat telnet gnupg2 curl wget jq && apt-get autoremove \
   && apt-get autoremove \
   && chmod +x ./install-cli.sh \
-  && ./install-cli.sh
+  && ./install-cli.sh && chmod +x /usr/local/bin/tkgi

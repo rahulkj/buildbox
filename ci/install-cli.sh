@@ -169,7 +169,7 @@ install_uaac() {
 
 install_mc() {
     log 'Installing minio cli'
-    wget https://dl.min.io/client/mc/release/linux-amd64/mc
+    wget -qO mc https://dl.min.io/client/mc/release/linux-amd64/mc
     chmod +x mc
     mv ./mc /usr/local/bin/mc
     mc --version
@@ -177,20 +177,10 @@ install_mc() {
 
 install_kubectl() {
     log 'Installing kubectl cli'
-    wget https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl -O kubectl
+    wget -qO kubectl https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl
     chmod +x ./kubectl
     mv ./kubectl /usr/local/bin/kubectl
     kubectl version --client
-}
-
-install_tkgi() {
-    log 'Installing tkgi cli'
-    pivnet login --api-token=${PIVNET_TOKEN}
-    pivnet download-product-files -p pivotal-container-service -r 1.8.1 -g 'tkgi-linux-amd64-*'
-    mv ./tkgi-linux-amd64-* ./tkgi
-    chmod +x ./tkgi
-    mv ./tkgi /usr/local/bin/tkgi
-    tkgi --version
 }
 
 ###
@@ -231,5 +221,4 @@ else
     install_govc
     install_mc
     install_kubectl
-    install_tkgi
 fi

@@ -9,10 +9,37 @@ jobs:
       trigger: true
     - get: git-repo
       trigger: true
+    - get: kubectl
+      resource: tkgi
+      params:
+        globs:
+        - kubectl-linux-amd64-*
+      trigger: true
+    - get: tkgi
+      resource: tkgi
+      params:
+        globs:
+        - tkgi-linux-amd64-*
+      trigger: true
+  - task: package-clis
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source: { repository: rjain/buildbox }
+      run:
+        path: sh
+        args:
+          - -exc
+          - ls -la; cp -r tkgi git-repo/ci/tkgi; cp -r git-repo/* updated-repo/
+      inputs:
+      - name: git-repo
+      - name: tkgi
+      outputs:
+      - name: updated-repo
   - put: docker-image
     params:
-      build: git-repo/ci
-      PIVNET_TOKEN: ((pivnet_token))
+      build: updated-repo/ci
 
 resources:
 - name: schedule
@@ -39,3 +66,17 @@ resources:
     username: ((docker_hub_credentials.username))
     password: ((docker_hub_credentials.password))
     repository: ((docker_hub_repository))
+
+- name: tkgi
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: pivotal-container-service
+    product_version: ^1\.8\..*$
+
+resource_types:
+- name: pivnet
+  type: docker-image
+  source:
+    repository: pivotalcf/pivnet-resource
+    tag: latest-final
