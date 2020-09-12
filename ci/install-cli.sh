@@ -183,6 +183,14 @@ install_kubectl() {
     kubectl version --client
 }
 
+install_tkgi() {
+    log 'Installing tkgi cli'
+    wget http://minio.homelab.io:9000/minio/clis/tkgi/tkgi-linux-amd64-1.8.0-build.75 -O tkgi
+    chmod +x ./tkgi
+    mv ./tkgi /usr/local/bin/tkgi
+    tkgi --version
+}
+
 ###
 # Main
 ##
@@ -221,4 +229,5 @@ else
     install_govc
     install_mc
     install_kubectl
+    install_tkgi
 fi

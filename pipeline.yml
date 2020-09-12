@@ -9,18 +9,6 @@ jobs:
       trigger: true
     - get: git-repo
       trigger: true
-    - get: kubectl
-      resource: tkgi
-      params:
-        globs:
-        - kubectl-linux-amd64-*
-      trigger: true
-    - get: tkgi
-      resource: tkgi
-      params:
-        globs:
-        - tkgi-linux-amd64-*
-      trigger: true  
   - put: docker-image
     params:
       build: git-repo/ci
@@ -50,17 +38,3 @@ resources:
     username: ((docker_hub_credentials.username))
     password: ((docker_hub_credentials.password))
     repository: ((docker_hub_repository))
-
-- name: tkgi
-  type: pivnet
-  source:
-    api_token: ((pivnet_token))
-    product_slug: pivotal-container-service
-    product_version: ^1\.8\..*$
-
-resource_types:
-- name: pivnet
-  type: docker-image
-  source:
-    repository: pivotalcf/pivnet-resource
-    tag: latest-final
