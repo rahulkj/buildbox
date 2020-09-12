@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
 
 ADD install-cli.sh /
-ADD tkgi/tkgi* /usr/local/bin/tkgi
+ADD ../../tkgi/tkgi* /usr/local/bin/tkgi
 
 RUN apt-get update && apt-get install -y --no-install-recommends git python \
   nano unzip uuid-runtime iputils-ping dnsutils ca-certificates \
