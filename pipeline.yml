@@ -4,22 +4,23 @@ jobs:
   public: true
   serial: true
   plan:
-  - get: schedule
-    trigger: true
-  - get: git-repo
-    trigger: true
-  - get: kubectl
-    resource: tkgi
-    params:
-      globs:
-      - kubectl-linux-amd64-*
-    trigger: true
-  - get: tkgi
-    resource: tkgi
-    params:
-      globs:
-      - tkgi-linux-amd64-*
-    trigger: true  
+  - in_parallel:
+    - get: schedule
+      trigger: true
+    - get: git-repo
+      trigger: true
+    - get: kubectl
+      resource: tkgi
+      params:
+        globs:
+        - kubectl-linux-amd64-*
+      trigger: true
+    - get: tkgi
+      resource: tkgi
+      params:
+        globs:
+        - tkgi-linux-amd64-*
+      trigger: true  
   - put: docker-image
     params:
       build: git-repo/ci
