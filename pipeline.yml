@@ -72,7 +72,7 @@ resources:
   source:
     api_token: ((pivnet_token))
     product_slug: pivotal-container-service
-    product_version: ^1\.8\..*$
+    product_version: ^1\.9\..*$
 
 resource_types:
 - name: pivnet
