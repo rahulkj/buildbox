@@ -14,6 +14,7 @@ REPO_PIVNET_CLI=pivotal-cf/pivnet-cli
 REPO_FLY=concourse/concourse
 REPO_YQ=mikefarah/yq
 REPO_GOVC=vmware/govmomi
+REPO_UAA=cloudfoundry-incubator/uaa-cli
 
 ###
 ## Helpers
@@ -68,6 +69,8 @@ install_yq() {
 
     wget -qO "$OUTPUT"/yq "$DOWNLOAD_URL"
     chmod +x "$OUTPUT"/yq
+
+    yq --version
 }
 
 install_bosh() {
@@ -78,17 +81,21 @@ install_bosh() {
 
     wget -qO "$OUTPUT"/bosh "$URLS_BOSH"
     chmod +x "$OUTPUT"/bosh
+
+    bosh -v
 }
 
 install_cf() {
   log 'Installing cf'
 
   wget -qO "$OUTPUT"/cf.tgz "$URLS_CF"
-  tar -xzvf "$OUTPUT"/cf.tgz -O cf > "$OUTPUT"/cf
+  tar -xzf "$OUTPUT"/cf.tgz -O cf > "$OUTPUT"/cf
 
   chmod +x "$OUTPUT"/cf
 
   rm "$OUTPUT"/cf.tgz
+
+  cf version
 }
 
 install_credhub() {
@@ -97,11 +104,13 @@ install_credhub() {
     get_latest_release "$REPO_CREDHUB" "linux"
 
     wget -qO "$OUTPUT"/credhub.tgz "$DOWNLOAD_URL"
-    tar -xvf "$OUTPUT"/credhub.tgz
+    tar -xf "$OUTPUT"/credhub.tgz
     chmod +x credhub
     mv credhub "$OUTPUT"/credhub
 
     rm "$OUTPUT"/credhub.tgz
+
+    credhub --version
 }
 
 install_om() {
@@ -112,13 +121,15 @@ install_om() {
   while read -r line; do
     if [[ "$line" == *om-*linux-*.tar.gz ]]; then
       wget -qO om.tgz "$line"
-      tar -xvf om.tgz
+      tar -xf om.tgz
       chmod +x om
       mv om "$OUTPUT"/om
 
       rm om.tgz
     fi
   done <<< "$DOWNLOAD_URL"
+
+  om -v
 }
 
 install_pivnet_cli() {
@@ -128,6 +139,8 @@ install_pivnet_cli() {
 
     wget -qO "$OUTPUT"/pivnet "$DOWNLOAD_URL"
     chmod +x "$OUTPUT"/pivnet
+
+    pivnet -v
 }
 
 install_fly() {
@@ -138,13 +151,15 @@ install_fly() {
     while read -r line; do
       if [[ "$line" == *fly-*linux-amd64.tgz ]]; then
         wget -qO fly.tgz "$line"
-        tar -xvf fly.tgz
+        tar -xf fly.tgz
         chmod +x fly
         mv fly "$OUTPUT"/fly
 
         rm fly.tgz
       fi
     done <<< "$DOWNLOAD_URL"
+
+    fly -v
 }
 
 install_govc() {
@@ -159,12 +174,19 @@ install_govc() {
     mv govc_linux_amd64 "$OUTPUT"/govc
 
     rm -rf govc_linux_amd64.gz
+
+     govc version
 }
 
-install_uaac() {
+install_uaa() {
     log 'Installing uaac cli'
-    apt-get update
-    gem install cf-uaac >> $LOGFILE
+
+    get_latest_release "$REPO_UAA" "linux-amd64"
+
+    wget -qO "$OUTPUT"/uaa "$DOWNLOAD_URL"
+    chmod +x "$OUTPUT"/uaa
+
+    uaa version
 }
 
 install_mc() {
@@ -219,6 +241,7 @@ else
     install_pivnet_cli
     install_fly
     install_govc
+    install_uaa
     install_mc
     install_kubectl
 fi
