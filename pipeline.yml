@@ -31,7 +31,9 @@ jobs:
         path: sh
         args:
           - -exc
-          - ls -la; cp -r tkgi git-repo/ci/tkgi; cp -r git-repo/* updated-repo/
+          - |
+            cp -r tkgi git-repo/ci/tkgi
+            cp -r git-repo/* updated-repo/
       inputs:
       - name: git-repo
       - name: tkgi
