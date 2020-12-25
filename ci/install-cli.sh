@@ -67,10 +67,15 @@ install_yq() {
 
     get_latest_release "$REPO_YQ" "linux_amd64"
 
-    wget -qO "$OUTPUT"/yq "$DOWNLOAD_URL"
-    chmod +x "$OUTPUT"/yq
+    while read -r line; do
+      if [[ "$line" != *.tar.gz ]]; then
+        wget -qO "$OUTPUT"/yq "$line"
+        chmod +x "$OUTPUT"/yq
+      fi
+    done <<< "$DOWNLOAD_URL"
 
-    echo "yq cli: " $(yq --version)
+
+    echo "yq cli:" $(yq --version)
 }
 
 install_bosh() {
@@ -82,7 +87,7 @@ install_bosh() {
     wget -qO "$OUTPUT"/bosh "$URLS_BOSH"
     chmod +x "$OUTPUT"/bosh
 
-    echo "bosh cli: " $(bosh -v)
+    echo "bosh cli:" $(bosh -v)
 }
 
 install_cf() {
@@ -95,7 +100,7 @@ install_cf() {
 
   rm "$OUTPUT"/cf.tgz
 
-  echo "cf cli: " $(cf version)
+  echo "cf cli:" $(cf version)
 }
 
 install_credhub() {
@@ -110,7 +115,7 @@ install_credhub() {
 
     rm "$OUTPUT"/credhub.tgz
 
-    echo "credhub cli: " $(credhub --version)
+    echo "credhub cli:" $(credhub --version)
 }
 
 install_om() {
@@ -129,7 +134,7 @@ install_om() {
     fi
   done <<< "$DOWNLOAD_URL"
 
-  echo "om cli: " $(om -v)
+  echo "om cli:" $(om -v)
 }
 
 install_pivnet_cli() {
@@ -140,7 +145,7 @@ install_pivnet_cli() {
     wget -qO "$OUTPUT"/pivnet "$DOWNLOAD_URL"
     chmod +x "$OUTPUT"/pivnet
 
-    echo "pivnet cli: " $(pivnet -v)
+    echo "pivnet cli:" $(pivnet -v)
 }
 
 install_fly() {
@@ -159,7 +164,7 @@ install_fly() {
       fi
     done <<< "$DOWNLOAD_URL"
 
-    echo "fly cli: " $(fly -v)
+    echo "fly cli:" $(fly -v)
 }
 
 install_govc() {
@@ -175,7 +180,7 @@ install_govc() {
 
     rm -rf govc_linux_amd64.gz
 
-    echo "govc cli: " $(govc version)
+    echo "govc cli:" $(govc version)
 }
 
 install_uaa() {
@@ -186,7 +191,7 @@ install_uaa() {
     wget -qO "$OUTPUT"/uaa "$DOWNLOAD_URL"
     chmod +x "$OUTPUT"/uaa
 
-    echo "uaa cli: " $(uaa version)
+    echo "uaa cli:" $(uaa version)
 }
 
 install_mc() {
@@ -194,7 +199,7 @@ install_mc() {
     wget -qO mc https://dl.min.io/client/mc/release/linux-amd64/mc
     chmod +x mc
     mv ./mc /usr/local/bin/mc
-    echo "mc cli: " $(mc --version)
+    echo "mc cli:" $(mc --version)
 }
 
 install_kubectl() {
@@ -202,7 +207,7 @@ install_kubectl() {
     wget -qO kubectl https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl
     chmod +x ./kubectl
     mv ./kubectl /usr/local/bin/kubectl
-    echo "kubectl cli: " $(kubectl version --client)
+    echo "kubectl cli:" $(kubectl version --client)
 }
 
 ###
