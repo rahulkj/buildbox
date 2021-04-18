@@ -245,7 +245,7 @@ else
     install_om
     install_pivnet_cli
     install_fly
-    install_govc
+    # install_govc
     install_uaa
     install_mc
     install_kubectl
