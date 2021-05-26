@@ -1,3 +1,4 @@
 git_url: ((docker_git_url))
 git_branch: ((docker_git_branch))
 pivnet_token: ((pivnet_token))
+docker_hub_repository: rjain/buildbox
