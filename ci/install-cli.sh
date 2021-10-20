@@ -51,7 +51,7 @@ validate_dependencies() {
 }
 
 get_latest_release() {
-    DOWNLOAD_URL=$(curl --silent "https://api.github.com/repos/$1/releases/latest" | \
+    DOWNLOAD_URL=$(curl -L --silent "https://api.github.com/repos/$1/releases/latest" | \
       jq -r \
       --arg flavor $2 '.assets[] | select(.name | contains($flavor)) | .browser_download_url')
     # echo $DOWNLOAD_URL
@@ -81,7 +81,7 @@ install_yq() {
 install_bosh() {
     log 'Installing bosh'
 
-    BOSH_CLI_VERSION=$(curl --silent "https://api.github.com/repos/cloudfoundry/bosh-cli/releases/latest" | jq -r '.name' | cut -d'v' -f2)
+    BOSH_CLI_VERSION=$(curl -L --silent "https://api.github.com/repos/cloudfoundry/bosh-cli/releases/latest" | jq -r '.name' | cut -d'v' -f2)
     URLS_BOSH=https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-$BOSH_CLI_VERSION-linux-amd64
 
     wget -qO "$OUTPUT"/bosh "$URLS_BOSH"
