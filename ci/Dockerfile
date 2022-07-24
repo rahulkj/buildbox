@@ -8,7 +8,7 @@ ENV DEBCONF_NONINTERACTIVE_SEEN true
 ADD install-cli.sh /
 ADD tkgi/tkgi-* /usr/local/bin/tkgi
 
-RUN apt-get update && apt-get install -y --no-install-recommends git python \
+RUN apt-get update && apt-get install -y --no-install-recommends git python3.10 \
   vim unzip uuid-runtime \
   iputils-ping dnsutils ca-certificates \
   netcat telnet gnupg2 \
