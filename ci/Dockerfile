@@ -1,4 +1,4 @@
-FROM ubuntu:21.04
+FROM ubuntu:22.10
 LABEL maintainer="rahulkj@gmail.com"
 LABEL maintainer_name="Rahul Jain"
 
