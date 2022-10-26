@@ -124,7 +124,7 @@ install_om() {
   get_latest_release "$REPO_OM" "linux"
 
   while read -r line; do
-    if [[ "$line" == *om-*linux-*.tar.gz ]]; then
+    if [[ "$line" == *om-*linux-*amd64-*.tar.gz ]]; then
       wget -qO om.tgz "$line"
       tar -xf om.tgz
       chmod +x om
