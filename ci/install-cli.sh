@@ -15,6 +15,7 @@ REPO_FLY=concourse/concourse
 REPO_YQ=mikefarah/yq
 REPO_GOVC=vmware/govmomi
 REPO_UAA=cloudfoundry-incubator/uaa-cli
+REPO_BOSH=cloudfoundry/bosh-cli
 
 ###
 ## Helpers
@@ -81,10 +82,9 @@ install_yq() {
 install_bosh() {
     log 'Installing bosh'
 
-    BOSH_CLI_VERSION=$(curl -L --silent "https://api.github.com/repos/cloudfoundry/bosh-cli/releases/latest" | jq -r '.name' | cut -d'v' -f2)
-    URLS_BOSH=https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-$BOSH_CLI_VERSION-linux-amd64
+    get_latest_release "$REPO_BOSH" "linux-amd64"
 
-    wget -qO "$OUTPUT"/bosh "$URLS_BOSH"
+    wget -qO "$OUTPUT"/bosh "$DOWNLOAD_URL"
     chmod +x "$OUTPUT"/bosh
 
     echo "bosh cli:" $(bosh -v)
