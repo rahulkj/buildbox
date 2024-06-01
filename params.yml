@@ -3,4 +3,4 @@ git_branch: ((docker_git_branch))
 pivnet_token: ((pivnet_token))
 docker_hub_repository: rjain/buildbox
 
-tkgi_product_version: ^1\.17\..*$
+tkgi_product_version: ^1\.19\..*$
