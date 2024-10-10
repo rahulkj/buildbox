@@ -39,7 +39,11 @@ jobs:
       - name: tkgi
       outputs:
       - name: updated-repo
-  - put: docker-image
+  - in_parallel:      
+    - put: docker-image
+      params:
+        build: updated-repo/ci
+  - put: internal-registry
     params:
       build: updated-repo/ci
 
@@ -71,6 +75,17 @@ resources:
     username: ((docker_hub_credentials.username))
     password: ((docker_hub_credentials.password))
     repository: ((docker_hub_repository))
+
+- name: internal-registry
+  type: docker-image
+  icon: docker
+  source:
+    repository: ((internal_registry.host))/((docker_hub_repository))
+    username: ((internal_registry.username))
+    password: ((internal_registry.password))
+    insecure_registries: 
+    - ((internal_registry.host))
+    - ((internal_registry.host)):443
 
 - name: tkgi
   type: pivnet
