@@ -43,9 +43,9 @@ jobs:
     - put: docker-image
       params:
         build: updated-repo/ci
-  - put: internal-registry
-    params:
-      build: updated-repo/ci
+    - put: internal-registry
+      params:
+        build: updated-repo/ci
 
 resources:
 - name: schedule
