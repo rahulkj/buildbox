@@ -43,9 +43,11 @@ jobs:
     - put: docker-image
       params:
         build: updated-repo/ci
+      get_params: {skip_download: true}
     - put: internal-registry
       params:
         build: updated-repo/ci
+      get_params: {skip_download: true}
 
 resources:
 - name: schedule
