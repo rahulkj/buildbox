@@ -9,3 +9,8 @@ internal_registry:
   host: ((harbor_host))
   username: ((harbor_credentials.username))
   password: ((harbor_credentials.password))
+
+docker_image:
+  version: ubuntu:24.10
+  maintainer: "rahulkj@gmail.com"
+  maintainer_name: "Rahul Jain"

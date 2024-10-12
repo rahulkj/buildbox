@@ -43,10 +43,18 @@ jobs:
     - put: docker-image
       params:
         build: updated-repo/ci
+        build_args:
+          IMAGE: ((docker_image.version))
+          MAINTAINER: ((docker_image.maintainer))
+          MAINTAINER_NAME: ((docker_image.maintainer_name))
       get_params: {skip_download: true}
     - put: internal-registry
       params:
         build: updated-repo/ci
+        build_args:
+          IMAGE: ((docker_image.version))
+          MAINTAINER: ((docker_image.maintainer))
+          MAINTAINER_NAME: ((docker_image.maintainer_name))
       get_params: {skip_download: true}
 
 resources:
