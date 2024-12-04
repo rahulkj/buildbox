@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -7,7 +7,7 @@ declare -a DEPENDENCIES=(tar wget gzip ruby gem jq curl)
 LOGFILE=/dev/null
 OUTPUT=/usr/local/bin
 
-URLS_CF='https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github-rel'
+REPO_CF=cloudfoundry/cli
 REPO_CREDHUB=cloudfoundry-incubator/credhub-cli
 REPO_OM=pivotal-cf/om
 REPO_PIVNET_CLI=pivotal-cf/pivnet-cli
@@ -93,7 +93,10 @@ install_bosh() {
 install_cf() {
   log 'Installing cf'
 
-  wget -qO "$OUTPUT"/cf.tgz "$URLS_CF"
+  get_latest_release "$REPO_CF" "linux_x86-64"
+
+  wget -qO "$OUTPUT"/cf.tgz "$DOWNLOAD_URL"
+
   tar -xzf "$OUTPUT"/cf.tgz -O cf > "$OUTPUT"/cf
 
   chmod +x "$OUTPUT"/cf
